@@ -4,13 +4,14 @@
 var imageArray = [];
 var shownItems = [];
 
-// OBJECT
-function CatalogItem(imageName, filePath) {
-  this.imageName = imageName;
-  this.filePath = filePath;
+// OBJECT DECLARATION
+function CatalogItem(newImageName, newFilePath) {
+//PROPERTIES
+  this.imageName = newImageName;
+  this.filePath = newFilePath;
   this.tallyclicked = 0;
   this.tallyDisplayed = 0;
-
+//PUSH VALUE OF THIS IN
   imageArray.push(this);
 }
 
@@ -65,12 +66,11 @@ function getRandomImage () {
       //IMAGE HAS NOT BEEN SHOWN
       shownItems.push(randomValue.imageName);
       if (shownItems.length > 6) {
-        shownItems.pop();
+        shownItems.shift();
       }
       randomValue.tallyDisplayed++;
       console.log(randomValue.tallyDisplayed);
       return randomValue;
-
     }
   }
 }
