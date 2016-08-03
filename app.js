@@ -3,6 +3,8 @@
 // GLOBAL DECLARATION
 var imageArray = [];
 var shownItems = [];
+var clicks = 0;
+var resultsButton = document.getElementById('results');
 
 // OBJECT DECLARATION
 function CatalogItem(newImageName, newFilePath) {
@@ -37,26 +39,24 @@ new CatalogItem('WateringCan', 'images/water-can.jpg');
 new CatalogItem('WineGlass', 'images/wine-glass.jpg');
 
 
-// function ___ (newCatalogItem){
+// DISPLAY 3 IMAGES- LEFT- CENTER- RIGHT
 function getNewRandomImages() {
 var randomValue = getRandomImage();
 var leftImg = document.getElementById('left');
 leftImg.src = randomValue.filePath;
 leftImg.alt = randomValue.imageName;
-leftImg.addEventListener('click', imageClicked);
 
 randomValue = getRandomImage();
 var centerImg = document.getElementById('center');
 centerImg.src = randomValue.filePath;
 centerImg.alt = randomValue.imageName;
-centerImg.addEventListener('click', imageClicked);
 
 randomValue = getRandomImage();
 var rightImg = document.getElementById('right');
 rightImg.src = randomValue.filePath;
 rightImg.alt = randomValue.imageName;
-rightImg.addEventListener('click', imageClicked);
 }
+
 
 //GET RANDOM ELEMENT & ENSURE NOT DUPE
 function getRandomImage () {
@@ -75,14 +75,64 @@ function getRandomImage () {
   }
 }
 
+//TALLY # TIMES CLICKED
 function imageClicked(element) {
   console.log(element.target.alt);
+  if (element.target.id === 'display') {
+    alert('Click a picture silly.');
+  }
 
   for (var i = 0; i < imageArray.length; i++) {
     if (imageArray[i].imageName === element.target.alt) {
       imageArray[i].tallyclicked++;
+      clicks++;
     }
+  }
+  //Limiting Survey to 25 rounds
+  if (clicks === 5) {
+    displayImg.removeEventListener('click', imageClicked);
+    resultsButton.hidden = false;
+    return;
   }
   getNewRandomImages();
 }
+
+function showResults() {
+var labels = [];
+var dataClicks = [];
+var dataShown = [];
+
+for (var i = 0; i < imageArray.length; i++) {
+  labels.push(imageArray[i].imageName);
+  dataClicks.push(imageArray[i].tallyclicked);
+  dataShown.push(imageArray[i].tallyDisplayed);
+}
+
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Number of Clicks',
+        data: dataClicks,
+        backgroundColor: '#FF8821',
+      },
+      {
+        label: 'Number of Times Shown',
+        data: dataShown,
+      }]
+    }
+
+  });
+}
+
 getNewRandomImages();
+var displayImg = document.getElementById('display');
+displayImg.addEventListener('click', imageClicked);
+resultsButton.addEventListener('click', showResults)
+
+
+//TALLY # TIMES VIEWS
+
+// ALERT AT 25 TIMES

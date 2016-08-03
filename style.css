@@ -1,17 +1,21 @@
-#left {
-  margin-left: 3.75%;
-  max-width: 32%;
-  height: 375px;
+img {
+  width: 200px;
 }
 
+#left {
+  margin-left: 3.75%;
+  max-width: 33%;
+  /*height: 375px;
+}*/
+
 #center {
-  max-width: 32%;
-  height: 375px;
+  max-width: 33%;
+  /*height: 375px;*/
 }
 
 #right {
-  max-width: 32%;
-  height: 375px;
+  max-width: 33%;
+  /*height: 375px;*/
 }
 
 body {
@@ -21,4 +25,10 @@ body {
 
 p {
   font-family: fantasy;
+}
+
+#display {
+  display: inline
+  border-width: 1px;
+  border: dashed orange;
 }
