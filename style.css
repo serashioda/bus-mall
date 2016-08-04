@@ -2,6 +2,10 @@ img {
   width: 200px;
 }
 
+canvas {
+  outline: 2px solid black;
+}
+
 #left {
   margin-left: 3.75%;
   max-width: 33%;

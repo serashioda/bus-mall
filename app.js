@@ -5,6 +5,7 @@ var imageArray = [];
 var shownItems = [];
 var clicks = 0;
 var resultsButton = document.getElementById('results');
+var imageArrayStringified;
 
 // OBJECT DECLARATION
 function CatalogItem(newImageName, newFilePath) {
@@ -17,6 +18,7 @@ function CatalogItem(newImageName, newFilePath) {
   imageArray.push(this);
 }
 
+function newObjects(){
 new CatalogItem('Bag', 'images/bag.jpg'); //eslint-disable-line
 new CatalogItem('Banana', 'images/banana.jpg');
 new CatalogItem('Bathroom', 'images/bathroom.jpg');
@@ -37,7 +39,17 @@ new CatalogItem('Unicorn', 'images/unicorn.jpg');
 new CatalogItem('Usb', 'images/usb.jpg');
 new CatalogItem('WateringCan', 'images/water-can.jpg');
 new CatalogItem('WineGlass', 'images/wine-glass.jpg');
+};
 
+if (localStorage.imageArrayStringified) {
+  console.log('Local Storage is being fed content');
+  var localData= JSON.parse(localStorage.imageArrayStringified)
+  imageArray = localData;
+
+} else {
+  console.log('Local Storage is hungry!');
+  newObjects();
+}
 
 // DISPLAY 3 IMAGES- LEFT- CENTER- RIGHT
 function getNewRandomImages() {
@@ -56,7 +68,6 @@ var rightImg = document.getElementById('right');
 rightImg.src = randomValue.filePath;
 rightImg.alt = randomValue.imageName;
 }
-
 
 //GET RANDOM ELEMENT & ENSURE NOT DUPE
 function getRandomImage () {
@@ -80,6 +91,7 @@ function imageClicked(element) {
   console.log(element.target.alt);
   if (element.target.id === 'display') {
     alert('Click a picture silly.');
+    return;
   }
 
   for (var i = 0; i < imageArray.length; i++) {
@@ -88,12 +100,16 @@ function imageClicked(element) {
       clicks++;
     }
   }
+
   //Limiting Survey to 25 rounds
-  if (clicks === 5) {
+  if (clicks === 25) {
     displayImg.removeEventListener('click', imageClicked);
     resultsButton.hidden = false;
     return;
-  }
+  } else {
+    imageArrayStringified = JSON.stringify(imageArray);
+    localStorage.setItem('imageArrayStringified', imageArrayStringified);
+  };
   getNewRandomImages();
 }
 
@@ -109,21 +125,27 @@ for (var i = 0; i < imageArray.length; i++) {
 }
 
   var ctx = document.getElementById("myChart");
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Number of Clicks',
-        data: dataClicks,
-        backgroundColor: '#FF8821',
-      },
+  var myChart = new Chart(
+    ctx,
+    {
+      type: 'bar',
+      data:
       {
-        label: 'Number of Times Shown',
-        data: dataShown,
-      }]
-    }
-
+        labels: labels,
+        datasets:
+        [{
+          label: 'Number of Clicks',
+          data: dataClicks,
+          backgroundColor: '#FF8821',
+        },
+        {
+          label: 'Number of Times Shown',
+          data: dataShown,
+        }]
+      },
+      options: {
+        responsive: false
+      }
   });
 }
 
@@ -131,8 +153,3 @@ getNewRandomImages();
 var displayImg = document.getElementById('display');
 displayImg.addEventListener('click', imageClicked);
 resultsButton.addEventListener('click', showResults)
-
-
-//TALLY # TIMES VIEWS
-
-// ALERT AT 25 TIMES
