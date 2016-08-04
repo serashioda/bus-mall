@@ -18,6 +18,7 @@ function CatalogItem(newImageName, newFilePath) {
   imageArray.push(this);
 }
 
+//FUNCTION TO STORE ALL OBJECTS LOCALLY
 function newObjects(){
 new CatalogItem('Bag', 'images/bag.jpg'); //eslint-disable-line
 new CatalogItem('Banana', 'images/banana.jpg');
@@ -101,7 +102,7 @@ function imageClicked(element) {
     }
   }
 
-  //Limiting Survey to 25 rounds
+  //SHOW RESULTS AFTER 25 ROUNDS
   if (clicks === 25) {
     displayImg.removeEventListener('click', imageClicked);
     resultsButton.hidden = false;
@@ -113,6 +114,7 @@ function imageClicked(element) {
   getNewRandomImages();
 }
 
+//SHOW RESULTS DATA IN CHART
 function showResults() {
 var labels = [];
 var dataClicks = [];
@@ -149,6 +151,7 @@ for (var i = 0; i < imageArray.length; i++) {
   });
 }
 
+//
 getNewRandomImages();
 var displayImg = document.getElementById('display');
 displayImg.addEventListener('click', imageClicked);
