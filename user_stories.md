@@ -20,7 +20,7 @@ As a power user, I can:
 * Specify files such as the image folder, and choose a file extension that I can work with, and possibly convert them to be consistent for usibility.
 * Ensure that there are 4-5 User Stories per role and place them in a file called user_stories.md in my repo.
 * Utilize good Markdown style to make this document look nice.
-* Build a __ where Three Random Photos will be selected from the image directory and display them side-by-side-by-side in the browser window.
+* Display Three Random Photos which will 1) be selected from the image directory, and 2) displayed side-by-side-by-side in the browser window.
 * Build in the ability to receive Clicks on the displayed images, and track the clicks for each image.
 * I will also want to track the # of times an image is displayed for statistical purposes.
 * Upon receiving a Click, three new non-duplicate random images will be automatically displayed.
